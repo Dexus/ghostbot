@@ -22,33 +22,9 @@
   </head>
   <body class="{{body_class}}">
     <div id="wrapper">
-      {{> top-navigation}}
-      <header class="site-header">
-        <div class="container">
-          <div id="site-navigation">
-            <div class="site-title-wrapper">
-              {{#if @blog.logo}}
-              <a class="site-logo js-ajax-link" title="{{@blog.title}}" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="{{@blog.title}}" height="86" /></a>
-              <h1 class="site-description" >{{@blog.title}}</h1>
-              {{else}}
-              <h1 class="site-title"><a class="js-ajax-link" title="{{@blog.title}}" href="{{@blog.url}}">{{@blog.title}}</a></h1>
-              {{!-- <a class="button-square" href="{{@blog.url}}/rss"><i class="fa fa-rss"></i></a> --}}
-              {{/if}}
-              {{!--
-              <h1 class="site-title"><a class="js-ajax-link js-show-index" title="{{@blog.title}}" href="{{@blog.url}}">{{@blog.title}}</a></h1>
-              --}}
-            </div>
-            <ul class="site-nav">
-              <li class="site-nav-item"><a class="js-ajax-link" title="{{@blog.title}}" href="{{@blog.url}}">Latest Post</a></li>
-              <li class="site-nav-item"><a class="js-ajax-link js-show-index" title="{{@blog.title}}" href="{{@blog.url}}">Browse Posts</a></li>
-              {{navigation}}
-              {{#if @blog.logo}}
-              <li class="site-nav-item"><a href="{{@blog.url}}/rss">RSS</a></li>
-              {{/if}}
-            </ul>
-          </div>
-        </div>
-      </header>
+      <div id="top-nav">
+        {{{block "topNav"}}}
+      </div>
       <div id="ajax-container">
         {{{body}}}
       </div>
@@ -61,7 +37,7 @@
           </h1>
           <a class="button-square button-jump-top js-jump-top" href="#"><i class="fa fa-angle-up"></i></a>
         </div>
-        <p class="footer-copyright">&copy; {{date format="YYYY"}} / Published with <a href="https://ghost.org">Ghost</a> / <a href="https://github.com/dklisiaris/ghostbot">Ghostbot theme</a> By <a href="http://klisiaris.org">dklisiaris</a></p>
+        <p class="footer-copyright">&copy; {{date format="YYYY"}} / Published with <a href="https://ghost.org">Ghost</a> / <a href="https://github.com/junrui93/ghostbot">Ghostbot theme</a> By <a href="http://klisiaris.org">dklisiaris</a> Modified By <a href="http://github.com/junrui93">junrui93</a></p>
       </div>
     </footer>
     {{! Ghost outputs important scripts and data with this tag }}

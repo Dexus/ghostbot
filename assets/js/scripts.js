@@ -31,47 +31,17 @@ jQuery(function($) {
   var loading = false;
   var showIndex = false;
   var $ajaxContainer = $('#ajax-container');
-  var $latestPost = $('#latest-post');
   var $postIndex = $('#post-index');
-  var $topNav = $('#top-navigation');
-  var $siteNav = $('#site-navigation');
-
-  var showTopNav = function() {
-    $siteNav.hide();
-    $topNav.show();
-    console.log('top nav appears');
-  }
-
-  var showSiteNav = function() {
-    $topNav.hide();
-    $siteNav.show();
-  }
-
-  // Initially hide the index and show the latest post
-  // $latestPost.show();
-  // $postIndex.hide();
-
-  // Initially hide the latest post and show the index
-  $latestPost.hide();
-  $postIndex.show();
-  showSiteNav();
-
-  // Show the index if the url has "page" in it (a simple
-  // way of checking if we're on a paginated page.)
-  if (window.location.pathname.indexOf('page') === 1 || window.location.pathname === '/') {
-    $latestPost.hide();
-    $postIndex.show();
-    showSiteNav();
-  } else {
-    showTopNav();
-  }
+  var $topNav = $('#top-nav');
+  var $pageVisited = $('#page-visited');
+  var seq = 0;
 
   // Check if history is enabled for the browser
   if (!History.enabled) {
     return false;
   }
 
-  History.Adapter.bind(window, 'statechange', function() {
+  History.Adapter.bind(window, 'statechange', function(e) {
     var State = History.getState();
 
     // Get the requested url and replace the current content
@@ -79,32 +49,34 @@ jQuery(function($) {
     $.get(State.url, function(result) {
       var $html = $(result);
       var $newContent = $('#ajax-container', $html).contents();
+      var $newTopNav = $('#top-nav', $html).contents();
 
       // Set the title to the requested urls document title
       document.title = $html.filter('title').text();
+        
+      if (seq == State.data.seq) {
+        $('html, body').animate({
+          'scrollTop': 0
+        });
+      } else {
+        // should keep original postition when pressing back button
+        if (State.data.seq)
+          seq = State.data.seq;
+        else 
+          seq = 0;
+      }
 
-      $('html, body').animate({
-        'scrollTop': 0
-      });
-
-      $ajaxContainer.fadeOut(500, function() {
-        $latestPost = $newContent.filter('#latest-post');
-        $postIndex = $newContent.filter('#post-index');
-
-        if (showIndex === true) {
-          $latestPost.hide();
-          showSiteNav();
-        } else {
-          $latestPost.show();
-          $postIndex.hide();
-          showTopNav();
-        }
-
+      $ajaxContainer.add($topNav).fadeOut(500, function() {
+        
         // Re run fitvid.js
         $newContent.fitVids();
+        $newContent.find('pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
 
+        $topNav.html($newTopNav);
         $ajaxContainer.html($newContent);
-        $ajaxContainer.fadeIn(500);
+        $ajaxContainer.add($topNav).fadeIn(500);
 
         NProgress.done();
 
@@ -147,34 +119,8 @@ jQuery(function($) {
 
         NProgress.start();
 
-        History.pushState({}, title, url);
-      } else {
-        // Swap in the latest post or post index as needed
-        if ($(this).hasClass('js-show-index')) {
-          $('html, body').animate({
-            'scrollTop': 0
-          });
-
-          NProgress.start();
-
-          $latestPost.fadeOut(300, function() {
-            $postIndex.fadeIn(300);
-            showSiteNav();
-            NProgress.done();
-          });
-        } else {
-          $('html, body').animate({
-            'scrollTop': 0
-          });
-
-          NProgress.start();
-
-          $postIndex.fadeOut(300, function() {
-            $latestPost.fadeIn(300);
-            showTopNav();
-            NProgress.done();
-          });
-        }
+        History.pushState({seq: ++seq}, title, url);
+        $pageVisited.val('1');
       }
     }
   });

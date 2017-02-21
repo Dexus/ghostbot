@@ -1,0 +1,6 @@
+{{!-- needs to enable Labs -> Enable Beta Features -> Public API --}}
+{{#get "posts" limit="1" as |recents| }}
+  {{#foreach recents}}
+  <li class="site-nav-item"><a class="js-ajax-link" title="{{@blog.title}}" href="{{url}}">Latest Post</a></li>
+  {{/foreach}}
+{{/get}}
