@@ -1,7 +1,7 @@
 <div class="top-header" id="top-navigation">
   <div class="top-header-container">
     {{#if @blog.logo}}
-    <a class="js-ajax-link js-show-index top-header-logo" title="{{@blog.title}}" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="{{@blog.title}}" height="64" /></a>
+    <a class="js-ajax-link js-show-index top-header-logo" title="{{@blog.title}}" href="{{@blog.url}}"><img class="img-circle" src="{{@blog.logo}}" alt="{{@blog.title}}" height="64" /></a>
     {{else}}
     <h3 class="top-header-logo"><a class="js-ajax-link js-show-index" title="{{@blog.title}}" href="{{@blog.url}}">{{@blog.title}}</a></h1>
     {{/if}}

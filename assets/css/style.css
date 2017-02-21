@@ -655,7 +655,7 @@ table {
     position: relative;
     top: 15px; }
   .top-header .top-header-container .top-header-logo img {
-    margin-top: 30px; }
+    margin-top: 15px; }
 
 @media screen and (max-width: 720px) {
   .top-header .top-header-container .top-header-logo {
@@ -810,5 +810,8 @@ kbd {
   text-shadow: #fff 0 1px 0;
   font-size: 0.9em;
   font-weight: bold; }
+
+.img-circle {
+  border-radius: 50%; }
 
 /*# sourceMappingURL=style.css.map */

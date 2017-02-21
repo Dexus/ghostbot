@@ -766,7 +766,7 @@ table {
     top:15px;
   }
   img {
-    margin-top: 30px;
+    margin-top: 15px;
   }
 }
 
@@ -953,4 +953,8 @@ kbd {
   text-shadow: #fff 0 1px 0;
   font-size: 0.9em;
   font-weight: bold;
+}
+
+.img-circle {
+    border-radius: 50%;
 }
