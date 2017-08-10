@@ -7,8 +7,8 @@
         <p class="blog-description">{{@blog.description}}</p>
       </header>
       <div class="post-content clearfix">
-        {{#if image}}
-          <img class="post-featured-image" src="{{image}}">
+        {{#if feature_image}}
+          <img class="post-featured-image" src="{{feature_image}}">
         {{/if}}
 {{! No indention to prevent handlebars indenting <pre>tag content}}
 {{{content}}}
